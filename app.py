@@ -31,6 +31,11 @@ allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussvil
 allPoly = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allPoly.csv')
 allGaps = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allGaps.csv')
 
+allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaksWin.csv')
+
+
+
+
 
 
 import plotly.express as px
@@ -113,6 +118,14 @@ stateOPTS = [
     ]
 
 
+fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(), 'P2': allLeaks.loc[allLeaks.POLYGON == "P2",].LEAKNUM.unique(),
+             'P3': allLeaks.loc[allLeaks.POLYGON == "P3",].LEAKNUM.unique(),'P4': allLeaks.loc[allLeaks.POLYGON == "P4",].LEAKNUM.unique()
+                       
+             }
+names = list(fnameDict.keys())
+nestedOptions = fnameDict[names[0]]
+
+
 tab1=html.Div([
     html.Div(
             [
@@ -129,16 +142,13 @@ tab1=html.Div([
                             value = 'P1',
                             className="dcc_control",
                         ),
-                        #html.P("Choose Related City:", className="control_label"),
-                        #dcc.Dropdown(
-                        #    id="whichCity",
-                            #options=[{'label':opt, 'value':opt} for opt in stat_nestedOptions],
-                            #value = stat_nestedOptions[0],
-                            #options=well_type_options,
-                            #multi=True,
-                            #value=list(WELL_TYPES.keys()),
-                         #   className="dcc_control",
-                        #),
+                        html.P("Choose Leak Number:", className="control_label"),
+                        dcc.Dropdown(
+                            id='opt-dropdown',
+                            #options=[{'label':opt, 'value':opt} for opt in nestedOptions],
+                            #value = nestedOptions[0]        
+                            options = [],
+                        ),
                         dcc.RadioItems(
                             id="whichMap",
                             options=whichMapOPTS,
@@ -147,6 +157,11 @@ tab1=html.Div([
                             className="dcc_control"
                             
                         ),
+                        html.A(html.Button('Get Route'),
+    #href='https://github.com/czbiohub/singlecell-dash/issues/new',
+    id = 'map_dir',target='_blank',
+    )
+
                        # dcc.RadioItems(
                        #     id="popratiostate",
                        #     options=popOPTS,
@@ -173,6 +188,7 @@ tab1=html.Div([
                                      id="polygonLks",
                                      className="mini_container",
                                  ),
+                               
                                 # html.Div(
                                 #     [html.H6(id="oilText"), html.P("")],
                                 #     id="oil",
@@ -233,7 +249,7 @@ tab2=html.Div([
 
                         html.P("Choose Polygon:", className="control_label"),
                        dcc.Dropdown(
-                            id="whichPoly",
+                            id="whichPolyGap",
                             #options=well_status_options,
                             options = stateOPTS,
                             #multi=True,
@@ -338,9 +354,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-server=app.server
-
-
+server = app.server
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -419,6 +433,9 @@ app.layout = html.Div(
 )
 
 
+
+
+
 @app.callback(dash.dependencies.Output('tabs-content-example', 'children'),
              [dash.dependencies.Input('tabs-example', 'value')])
 def render_content(tab):
@@ -436,38 +453,57 @@ def render_content(tab):
                ]
               )
 def update_polyLeak(whichPolygon,whichMap):
-    usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
-    fig = px.scatter_mapbox(usedat, lat="Latitude", lon="Longitude",  
-                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=11,
-                  hover_data = {'PolyLK'})
+    usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]
+    color_discrete_map = {'P1': 'rgb(255,0,0)', 'setosa': 'rgb(0,255,0)', 'versicolor': 'rgb(0,0,255)'}
+    color_discrete_lks= {'P1': 'rgb(0,255,0)', 'setosa': 'rgb(0,255,0)', 'versicolor': 'rgb(0,0,255)'}
+
+    usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+    usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+    fig = px.line_mapbox(
+        usepoly2,
+        lon = 'lat',
+        lat = 'lon',
+        zoom = 12,
+        color = 'POLYGON',
+        color_discrete_map=color_discrete_map
+
+        )
+        
+    if usedat.shape[0]!=0:
+        fig2 = px.scatter_mapbox(usedat, lat="Latitude", lon="Longitude",  
+                      color = 'POLYGON', color_discrete_map = color_discrete_lks, size_max=15, zoom=11,
+                      hover_data = {'PolyLK'})
+        fig.add_trace(fig2.data[0])
+
+        
     fig.update_layout(
         autosize=True,
         width = 800,
         height = 800,
         showlegend = False
         )
-    if whichPolygon != "Pa":
-        usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
-        usepoly2 = usepoly.loc[usepoly.portion == 3,:]
-        
-        fig2 = px.line_mapbox(usepoly2,
-            lon = 'lat',
-            lat = 'lon',
-            zoom = 10
-            )
-        fig.add_trace(fig2.data[0])
+
     fig.update()
-    #if whichMap == "sat":
-    #    fig.update_layout(
-     #       mapbox_style="satellite-streets",
- #)
+    if whichMap == "sat":
+        fig.update_layout(
+            mapbox_style="satellite-streets",
+ )
     
     
     return fig
 
+@app.callback(
+    dash.dependencies.Output('opt-dropdown', 'options'),
+    [dash.dependencies.Input('whichPoly', 'value')]
+)
+def update_date_dropdown(name):
+    options=[{'label':i, 'value':i} for i in fnameDict[name]]
+    return options
+    #return ('options':[{'label': 1, 'value': 1},{'label': 2, 'value': 2},{'label': 3, 'value': 3},{'label': 4, 'value': 4}])
+
 
 @app.callback(dash.dependencies.Output('gapGraph', 'figure'),
-              [dash.dependencies.Input('whichPoly', 'value'),
+              [dash.dependencies.Input('whichPolyGap', 'value'),
                dash.dependencies.Input('whichMap', 'value')
                
                ]
@@ -476,18 +512,21 @@ def update_gapLeak(whichPolygon,whichMap):
     usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
     usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
-    usepolys = usepoly.loc[usepoly.portion == 3,:]
-    fig = px.line_mapbox(usepolys,
+    usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+    fig = px.line_mapbox(
+        usepoly2,
         lon = 'lat',
         lat = 'lon',
-        zoom = 12
+        zoom = 12,
+
         )
     
     fig.update_layout(
         autosize=True,
         width = 800,
         height = 800,
-        showlegend = False
+        showlegend = False,
+
         )
     for x in range(usegap.portion.drop_duplicates().size):
         i = x+1
@@ -499,10 +538,10 @@ def update_gapLeak(whichPolygon,whichMap):
                 zoom = 10).data[0]
             
             )    
-   # if whichMap == "sat":
-   #     fig.update_layout(
-   #         mapbox_style="satellite-streets",
- #)
+    if whichMap == "sat":
+        fig.update_layout(
+            mapbox_style="satellite-streets",
+ )
     return fig
 
 
@@ -510,15 +549,49 @@ def update_gapLeak(whichPolygon,whichMap):
 
 
 
+# =============================================================================
+# @app.callback(
+#     dash.dependencies.Output('hover-data-plot', 'figure'),
+#     [dash.dependencies.Input('leakGraph', 'hoverData'),
+#      dash.dependencies.Input('whichMap', 'value')])
+# def updatePlot(hoverData,whichMap):
+#      plk = hoverData['points'][0]['customdata'][0]
+#      dat = allLeaks[allLeaks.PolyLK==str(plk)]
+#      #dat=allLeaks
+#      title = "Leak " + str(int(dat.reset_index().LEAKNUM)) + '. '+ " Location: " + str(float(dat.reset_index().loc[0,['Longitude']])) + ',' + str(float(dat.reset_index().loc[0,['Latitude']]))
+#      fig = px.scatter_mapbox(dat, lat="Latitude", lon="Longitude", 
+#                    size_max=25, zoom=15,
+#                   hover_data = {'PolyLK'})
+#                                                   
+#      fig.update_layout(
+#         autosize=True,
+#         width = 800,
+#         height = 800,
+#         title =title
+#         )
+#      fig.update_traces(marker = dict(size = 20))
+#      
+#      if whichMap == "sat":
+#         fig.update_layout(
+#             mapbox_style="satellite-streets",
+#             )
+#      fig.update()
+#      return fig
+# =============================================================================
+ 
 @app.callback(
     dash.dependencies.Output('hover-data-plot', 'figure'),
-    [dash.dependencies.Input('leakGraph', 'hoverData'),
-     dash.dependencies.Input('whichMap', 'value')])
-def updatePlot(hoverData,whichMap):
-     plk = hoverData['points'][0]['customdata'][0]
-     dat = allLeaks[allLeaks.PolyLK==str(plk)]
+    [dash.dependencies.Input('whichPoly', 'value'),
+     dash.dependencies.Input('opt-dropdown', 'value'),
+     dash.dependencies.Input('whichMap', 'value')
+     ])
+def updatePlot(whichPoly,whichLeak,whichMap):
+     #plk = hoverData['points'][0]['customdata'][0]
+     dat2 = allLeaks.loc[allLeaks.POLYGON == whichPoly,]
+     dat = dat2.loc[dat2.LEAKNUM == whichLeak,]
+     #dat = allLeaks[allLeaks.PolyLK==str(plk)]
      #dat=allLeaks
-     title = "Leak " + str(int(dat.reset_index().LEAKNUM)) + '. '+ " Location: " + str(float(dat.reset_index().loc[0,['Longitude']])) + ',' + str(float(dat.reset_index().loc[0,['Latitude']]))
+     title = "Leak " + str(whichLeak) + '. '+ " Location: " + str(float(dat.reset_index().loc[0,['Latitude']])) + ',' + str(float(dat.reset_index().loc[0,['Longitude']]))
      fig = px.scatter_mapbox(dat, lat="Latitude", lon="Longitude", 
                    size_max=25, zoom=15,
                   hover_data = {'PolyLK'})
@@ -537,6 +610,23 @@ def updatePlot(hoverData,whichMap):
             )
      fig.update()
      return fig
+ 
+@app.callback(
+    dash.dependencies.Output('map_dir', 'href'),
+    [dash.dependencies.Input('whichPoly', 'value'),
+     dash.dependencies.Input('opt-dropdown', 'value'),
+     ])
+def giveURL(whichPoly,whichLeak):
+    dat2 = allLeaks.loc[allLeaks.POLYGON == whichPoly,]
+    dat = dat2.loc[dat2.LEAKNUM == whichLeak,]
+    
+    lon = str(float(dat.Longitude))
+    lat = str(float(dat.Latitude))
+    
+    url = 'https://www.google.com/maps/dir//' + lat + ',' + lon + '/@' + lat + ',' + lon + ',13z/data=!4m7!4m6!1m0!1m3!2m2!1d-86.5940475!2d33.7491112!3e0'
+    return(url)
+
+
 
 @app.callback(
     dash.dependencies.Output('hover-data-info', 'children'),
