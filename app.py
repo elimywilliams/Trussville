@@ -30,24 +30,12 @@ px.set_mapbox_access_token('pk.eyJ1IjoiZXdpbGxpYW1zMjAyMCIsImEiOiJja2FpdTIxOXMwM
 allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaks.csv')
 allPoly = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allPoly.csv')
 allGaps = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allGaps.csv')
-
 allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaksWin.csv')
-
-
-
 
 
 
 import plotly.express as px
 import plotly.io as pio
-
-
-fig = px.scatter_mapbox(allLeaks, lat="Latitude", lon="Longitude",  color="LEAKNUM",
-                   color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10,
-                   hover_data = {'POLYGON','LEAKNUM'})
-# fig.show()
-
-
 
 projOPTS = [
             {'label': 'ACLARA (NY)', 'value': 'Aclara'},
@@ -354,7 +342,8 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-server = app.server
+server=app.server
+
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -454,26 +443,46 @@ def render_content(tab):
               )
 def update_polyLeak(whichPolygon,whichMap):
     usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]
-    color_discrete_map = {'P1': 'rgb(255,0,0)', 'setosa': 'rgb(0,255,0)', 'versicolor': 'rgb(0,0,255)'}
-    color_discrete_lks= {'P1': 'rgb(0,255,0)', 'setosa': 'rgb(0,255,0)', 'versicolor': 'rgb(0,0,255)'}
-
+    color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                          'P4': 'rgb(255,0,0)'}
+    color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
+                          'P4': 'rgb(255,255,255)'}
+    color_discrete_lks_ns= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
+                          'P4': 'rgb(0, 0, 99)'}
+    
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
     usepoly2 = usepoly.loc[usepoly.portion == 3,:]
-    fig = px.line_mapbox(
-        usepoly2,
-        lon = 'lat',
-        lat = 'lon',
-        zoom = 12,
-        color = 'POLYGON',
-        color_discrete_map=color_discrete_map
-
-        )
-        
-    if usedat.shape[0]!=0:
-        fig2 = px.scatter_mapbox(usedat, lat="Latitude", lon="Longitude",  
-                      color = 'POLYGON', color_discrete_map = color_discrete_lks, size_max=15, zoom=11,
-                      hover_data = {'PolyLK'})
-        fig.add_trace(fig2.data[0])
+    if whichMap == 'sat':
+        fig = px.line_mapbox(
+            usepoly2,
+            lon = 'lat',
+            lat = 'lon',
+            zoom = 12,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_map
+    
+            )
+        if usedat.shape[0]!=0:
+            fig2 = px.scatter_mapbox(usedat, lat="Latitude", lon="Longitude",  
+                          color = 'POLYGON', color_discrete_map = color_discrete_lks, size_max=15, zoom=11,
+                          hover_data = {'PolyLK'})
+            fig.add_trace(fig2.data[0])
+    elif whichMap != 'sat':
+        fig = px.line_mapbox(
+            usepoly2,
+            lon = 'lat',
+            lat = 'lon',
+            zoom = 12,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_map
+    
+            )
+        if usedat.shape[0]!=0:
+            fig2 = px.scatter_mapbox(usedat, lat="Latitude", lon="Longitude",  
+                          color = 'POLYGON', color_discrete_map = color_discrete_lks_ns, size_max=15, zoom=11,
+                          hover_data = {'PolyLK'})
+            fig.add_trace(fig2.data[0])
+            
 
         
     fig.update_layout(
@@ -513,20 +522,33 @@ def update_gapLeak(whichPolygon,whichMap):
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
     usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
     usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+    
+    if whichMap == 'sat':
+        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                              'P4': 'rgb(255,0,0)'}
+        color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
+                              'P4': 'rgb(255,255,255)'}
+    elif whichMap != 'sat':
+        color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
+                              'P4': 'rgb(0, 0, 99)'}
+        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                              'P4': 'rgb(255,0,0)'}
+    
     fig = px.line_mapbox(
         usepoly2,
         lon = 'lat',
         lat = 'lon',
         zoom = 12,
-
-        )
+        color = 'POLYGON',
+        color_discrete_map=color_discrete_map
+            )
     
     fig.update_layout(
         autosize=True,
         width = 800,
         height = 800,
         showlegend = False,
-
+        
         )
     for x in range(usegap.portion.drop_duplicates().size):
         i = x+1
@@ -535,7 +557,9 @@ def update_gapLeak(whichPolygon,whichMap):
             px.line_mapbox(use,
                 lon = 'lon',
                 lat = 'lat',
-                zoom = 10).data[0]
+                zoom = 10).data[0],
+                color = 'POLYGON',
+                color_discrete_map=color_discrete_lks
             
             )    
     if whichMap == "sat":
@@ -589,12 +613,28 @@ def updatePlot(whichPoly,whichLeak,whichMap):
      #plk = hoverData['points'][0]['customdata'][0]
      dat2 = allLeaks.loc[allLeaks.POLYGON == whichPoly,]
      dat = dat2.loc[dat2.LEAKNUM == whichLeak,]
+     if whichMap == 'sat':
+        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                              'P4': 'rgb(255,0,0)'}
+        color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
+                              'P4': 'rgb(255,255,255)'}
+     elif whichMap != 'sat':
+         color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
+                              'P4': 'rgb(0, 0, 99)'}
+         color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                              'P4': 'rgb(255,0,0)'}
      #dat = allLeaks[allLeaks.PolyLK==str(plk)]
      #dat=allLeaks
      title = "Leak " + str(whichLeak) + '. '+ " Location: " + str(float(dat.reset_index().loc[0,['Latitude']])) + ',' + str(float(dat.reset_index().loc[0,['Longitude']]))
      fig = px.scatter_mapbox(dat, lat="Latitude", lon="Longitude", 
                    size_max=25, zoom=15,
-                  hover_data = {'PolyLK'})
+                  hover_data = {'PolyLK'},
+                  color = 'POLYGON',
+                  color_discrete_map=color_discrete_lks
+
+                  
+                  
+                  )
                                                   
      fig.update_layout(
         autosize=True,
