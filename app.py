@@ -456,10 +456,10 @@ def update_polyLeak(whichPolygon,whichMap):
             )
         fig.add_trace(fig2.data[0])
     fig.update()
-    if whichMap == "sat":
-        fig.update_layout(
-            mapbox_style="satellite-streets",
- )
+    #if whichMap == "sat":
+    #    fig.update_layout(
+     #       mapbox_style="satellite-streets",
+ #)
     
     
     return fig
@@ -497,10 +497,10 @@ def update_gapLeak(whichPolygon,whichMap):
                 zoom = 10).data[0]
             
             )    
-    if whichMap == "sat":
-        fig.update_layout(
-            mapbox_style="satellite-streets",
- )
+   # if whichMap == "sat":
+   #     fig.update_layout(
+   #         mapbox_style="satellite-streets",
+ #)
     return fig
 
 
