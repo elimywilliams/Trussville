@@ -448,10 +448,11 @@ def update_polyLeak(whichPolygon,whichMap):
         )
     if whichPolygon != "Pa":
         usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
-    
-        fig2 = px.line_mapbox(
-            lon = usepoly.loc[usepoly.portion == 3,:].lat,
-            lat = usepoly.loc[usepoly.portion == 3,:].lon,
+        usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+        
+        fig2 = px.line_mapbox(usepoly2,
+            lon = 'lat',
+            lat = 'lon',
             zoom = 10
             )
         fig.add_trace(fig2.data[0])
@@ -475,9 +476,10 @@ def update_gapLeak(whichPolygon,whichMap):
     usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
     usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
-    fig = px.line_mapbox(
-        lon = usepoly.loc[usepoly.portion == 3,:].lat,
-        lat = usepoly.loc[usepoly.portion == 3,:].lon,
+    usepolys = usepoly.loc[usepoly.portion == 3,:]
+    fig = px.line_mapbox(usepolys,
+        lon = 'lat',
+        lat = 'lon',
         zoom = 12
         )
     
@@ -491,9 +493,9 @@ def update_gapLeak(whichPolygon,whichMap):
         i = x+1
         use = usegap.loc[usegap.portion == i,]
         fig.add_trace(
-            px.line_mapbox(
-                lon = use.lon,
-                lat = use.lat,
+            px.line_mapbox(use,
+                lon = 'lon',
+                lat = 'lat',
                 zoom = 10).data[0]
             
             )    
