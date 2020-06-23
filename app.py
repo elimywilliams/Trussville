@@ -342,8 +342,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-server=app.server
-
+server = app.server
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -391,7 +390,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '6.19.20', style={"margin-top": "0px"}
+                                    '6.23.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
@@ -557,9 +556,12 @@ def update_gapLeak(whichPolygon,whichMap):
             px.line_mapbox(use,
                 lon = 'lon',
                 lat = 'lat',
-                zoom = 10).data[0],
+                zoom = 10,
                 color = 'POLYGON',
-                color_discrete_map=color_discrete_lks
+                color_discrete_map=color_discrete_lks,
+                width = 10,
+                ).data[0],
+                
             
             )    
     if whichMap == "sat":
