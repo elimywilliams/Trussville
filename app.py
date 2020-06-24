@@ -550,8 +550,8 @@ def update_gapLeak(whichPolygon,whichMap):
         showlegend = False,
         
         )
-    for x in range(howmany):
-    #for x in range(6):
+    #for x in range(howmany):
+    for x in range(32):
         i = x+1
         use = usegap.loc[usegap.portion == i,]
         fig.add_trace(
