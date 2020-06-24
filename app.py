@@ -521,7 +521,7 @@ def update_gapLeak(whichPolygon,whichMap):
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
     usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
     usepoly2 = usepoly.loc[usepoly.portion == 3,:]
-    howmany = usegap.portion.drop_duplicates().size
+    #howmany = usegap.portion.drop_duplicates().size
     if whichPolygon == 'P1':
       howmany =130
       howmany = 50
