@@ -114,6 +114,301 @@ names = list(fnameDict.keys())
 nestedOptions = fnameDict[names[0]]
 
 
+
+color_discrete_map_st = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                      'P4': 'rgb(255,0,0)'}
+color_discrete_lks_st= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
+                      'P4': 'rgb(255,255,255)'}
+
+color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
+                      'P4': 'rgb(0, 0, 99)'}
+color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                      'P4': 'rgb(255,0,0)'}
+
+
+whichPolygon = "P1"
+usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
+usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
+ 
+usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+
+
+figP1_st = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map_st
+        )
+
+figP1_st.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP1_st.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks_st,
+            width = 10,
+            ).data[0],       
+        )    
+figP1_st.update_layout(
+             mapbox_style="satellite-streets",)
+
+figP1 = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map
+        )
+
+figP1.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP1.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks,
+            width = 10,
+            ).data[0],       
+        )   
+    
+del(usedat,usegap,whichPolygon,usepoly,usepoly2)    
+whichPolygon = "P2"
+usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
+usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
+ 
+usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+
+
+figP2_st = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map_st
+        )
+
+figP2_st.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP2_st.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks_st,
+            width = 10,
+            ).data[0],       
+        )    
+figP2_st.update_layout(
+             mapbox_style="satellite-streets",)
+figP2 = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map
+        )
+
+figP2.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP2.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks,
+            width = 10,
+            ).data[0],       
+        )   
+del(usedat,usegap,whichPolygon,usepoly,usepoly2)    
+  
+whichPolygon = "P3"
+usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
+usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
+ 
+usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+
+
+figP3_st = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map_st
+        )
+
+figP3_st.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP3_st.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks_st,
+            width = 10,
+            ).data[0],       
+        )    
+figP3_st.update_layout(
+             mapbox_style="satellite-streets",)
+figP3 = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map
+        )
+
+figP3.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP3.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks,
+            width = 10,
+            ).data[0],       
+        )   
+del(usedat,usegap,whichPolygon,usepoly,usepoly2)    
+ 
+whichPolygon = "P4"
+usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
+usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
+ 
+usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+
+
+figP4_st = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map_st
+        )
+
+figP4_st.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP4_st.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks_st,
+            width = 10,
+            ).data[0],       
+        )    
+figP4_st.update_layout(
+             mapbox_style="satellite-streets",)
+figP4 = px.line_mapbox(
+    usepoly2,
+    lon = 'lat',
+    lat = 'lon',
+    zoom = 12,
+    color = 'POLYGON',
+    color_discrete_map=color_discrete_map
+        )
+
+figP4.update_layout(
+    autosize=True,
+    width = 800,
+    height = 800,
+    showlegend = False,
+    
+    )
+for x in range(usegap.portion.drop_duplicates().size):
+    i = x+1
+    use = usegap.loc[usegap.portion == i,]
+    figP4.add_trace(
+        px.line_mapbox(use,
+            lon = 'lon',
+            lat = 'lat',
+            zoom = 10,
+            color = 'POLYGON',
+            color_discrete_map=color_discrete_lks,
+            width = 10,
+            ).data[0],       
+        )   
+ 
+    
+   
+
 tab1=html.Div([
     html.Div(
             [
@@ -343,6 +638,8 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
 )
 
 server = app.server
+
+
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -517,71 +814,75 @@ def update_date_dropdown(name):
                ]
               )
 def update_gapLeak(whichPolygon,whichMap):
-    usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
-    usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
-    usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
-    usepoly2 = usepoly.loc[usepoly.portion == 3,:]
-    #howmany = usegap.portion.drop_duplicates().size
-    if whichPolygon == 'P1':
-      #howmany =129
-      howmany = 50
-    elif whichPolygon == "P2":
-      #howmany = 72
-      howmany = 50
-    elif whichPolygon == "P3":
-      #howmany = 141
-      howmany = 50
-    elif whichPolygon == 'P4':
-      howmany = 31
+    if whichPolygon == "P1" and whichMap == 'sat':
+            return(figP1_st)
+    elif whichPolygon == "P1" and whichMap != 'sat':
+            return(figP1)
+    elif whichPolygon == "P2" and whichMap == 'sat':
+            return(figP2_st)
+    elif whichPolygon == "P2" and whichMap != 'sat':
+            return(figP2)
+    elif whichPolygon == "P3" and whichMap == 'sat':
+            return(figP3_st)
+    elif whichPolygon == "P3" and whichMap != 'sat':
+            return(figP3)
+    elif whichPolygon == "P4" and whichMap == 'sat':
+            return(figP4_st)
+    elif whichPolygon == "P4" and whichMap != 'sat':
+            return(figP4)
     
-    if whichMap == 'sat':
-        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-                              'P4': 'rgb(255,0,0)'}
-        color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
-                              'P4': 'rgb(255,255,255)'}
-    elif whichMap != 'sat':
-        color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
-                              'P4': 'rgb(0, 0, 99)'}
-        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-                              'P4': 'rgb(255,0,0)'}
+    #usedat = llLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
+    #usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
+     
+ #    usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+ #    usepoly2 = usepoly.loc[usepoly.portion == 3,:]
     
-    fig = px.line_mapbox(
-        usepoly2,
-        lon = 'lat',
-        lat = 'lon',
-        zoom = 12,
-        color = 'POLYGON',
-        color_discrete_map=color_discrete_map
-            )
+ #    if whichMap == 'sat':
+ #        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+ #                              'P4': 'rgb(255,0,0)'}
+ #        color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
+ #                              'P4': 'rgb(255,255,255)'}
+ #    elif whichMap != 'sat':
+ #        color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
+ #                              'P4': 'rgb(0, 0, 99)'}
+ #        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+ #                              'P4': 'rgb(255,0,0)'}
     
-    fig.update_layout(
-        autosize=True,
-        width = 800,
-        height = 800,
-        showlegend = False,
+ #    fig = px.line_mapbox(
+ #        usepoly2,
+ #        lon = 'lat',
+ #        lat = 'lon',
+ #        zoom = 12,
+ #        color = 'POLYGON',
+ #        color_discrete_map=color_discrete_map
+ #            )
+    
+ #    fig.update_layout(
+ #        autosize=True,
+ #        width = 800,
+ #        height = 800,
+ #        showlegend = False,
         
-        )
-    for x in range(howmany):
-    #for x in range(32):
-        i = x+1
-        use = usegap.loc[usegap.portion == i,]
-        fig.add_trace(
-            px.line_mapbox(use,
-                lon = 'lon',
-                lat = 'lat',
-                zoom = 10,
-                color = 'POLYGON',
-                color_discrete_map=color_discrete_lks,
-                width = 10,
-                ).data[0],
+ #        )
+ #    for x in range(usegap.portion.drop_duplicates().size):
+ #        i = x+1
+ #        use = usegap.loc[usegap.portion == i,]
+ #        fig.add_trace(
+ #            px.line_mapbox(use,
+ #                lon = 'lon',
+ #                lat = 'lat',
+ #                zoom = 10,
+ #                color = 'POLYGON',
+ #                color_discrete_map=color_discrete_lks,
+ #                width = 10,
+ #                ).data[0],
                 
             
-            )    
-    if whichMap == "sat":
-        fig.update_layout(
-            mapbox_style="satellite-streets",
- )
-    return fig
+ #            )    
+ #    if whichMap == "sat":
+ #        fig.update_layout(
+ #            mapbox_style="satellite-streets",
+ # )
 
 
 
@@ -626,6 +927,7 @@ def update_gapLeak(whichPolygon,whichMap):
      ])
 def updatePlot(whichPoly,whichLeak,whichMap):
      #plk = hoverData['points'][0]['customdata'][0]
+     
      dat2 = allLeaks.loc[allLeaks.POLYGON == whichPoly,]
      dat = dat2.loc[dat2.LEAKNUM == whichLeak,]
      if whichMap == 'sat':
