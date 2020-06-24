@@ -521,6 +521,7 @@ def update_gapLeak(whichPolygon,whichMap):
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
     usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
     usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+    howmany = usegap.portion.drop_duplicates().size
     
     if whichMap == 'sat':
         color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
@@ -549,7 +550,7 @@ def update_gapLeak(whichPolygon,whichMap):
         showlegend = False,
         
         )
-    for x in range(usegap.portion.drop_duplicates().size):
+    for x in range(howmany):
     #for x in range(6):
         i = x+1
         use = usegap.loc[usegap.portion == i,]
