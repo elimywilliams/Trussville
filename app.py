@@ -256,7 +256,7 @@ tab2=html.Div([
                          #   className="dcc_control",
                         #),
                         dcc.RadioItems(
-                            id="whichMap",
+                            id="whichMapGap",
                             options=whichMapOPTS,
                             value="sat",
                             labelStyle={"display": "inline-block"},
@@ -512,7 +512,7 @@ def update_date_dropdown(name):
 
 @app.callback(dash.dependencies.Output('gapGraph', 'figure'),
               [dash.dependencies.Input('whichPolyGap', 'value'),
-               dash.dependencies.Input('whichMap', 'value')
+               dash.dependencies.Input('whichMapGap', 'value')
                
                ]
               )
