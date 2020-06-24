@@ -523,16 +523,16 @@ def update_gapLeak(whichPolygon,whichMap):
     usepoly2 = usepoly.loc[usepoly.portion == 3,:]
     #howmany = usegap.portion.drop_duplicates().size
     if whichPolygon == 'P1':
-      howmany =130
+      howmany =129
       #howmany = 50
     elif whichPolygon == "P2":
-      howmany = 73
+      howmany = 72
       #howmany = 50
     elif whichPolygon == "P3":
-      howmany = 142
+      howmany = 141
       #howmany = 50
     elif whichPolygon == 'P4':
-      howmany = 32
+      howmany = 31
     
     if whichMap == 'sat':
         color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
