@@ -523,14 +523,14 @@ def update_gapLeak(whichPolygon,whichMap):
     usepoly2 = usepoly.loc[usepoly.portion == 3,:]
     #howmany = usegap.portion.drop_duplicates().size
     if whichPolygon == 'P1':
-      howmany =129
-      #howmany = 50
+      #howmany =129
+      howmany = 50
     elif whichPolygon == "P2":
-      howmany = 72
-      #howmany = 50
+      #howmany = 72
+      howmany = 50
     elif whichPolygon == "P3":
-      howmany = 141
-      #howmany = 50
+      #howmany = 141
+      howmany = 50
     elif whichPolygon == 'P4':
       howmany = 31
     
