@@ -549,21 +549,22 @@ def update_gapLeak(whichPolygon,whichMap):
         showlegend = False,
         
         )
-   # for x in range(usegap.portion.drop_duplicates().size):
-   #     i = x+1
-   #     use = usegap.loc[usegap.portion == i,]
-   #     fig.add_trace(
-   #         px.line_mapbox(use,
-   #             lon = 'lon',
-   #             lat = 'lat',
-   #             zoom = 10,
-   #             color = 'POLYGON',
-   #             color_discrete_map=color_discrete_lks,
-   #             width = 10,
-   #             ).data[0],
+    #for x in range(usegap.portion.drop_duplicates().size):
+    for x in range(3):
+        i = x+1
+        use = usegap.loc[usegap.portion == i,]
+        fig.add_trace(
+            px.line_mapbox(use,
+                lon = 'lon',
+                lat = 'lat',
+                zoom = 10,
+                color = 'POLYGON',
+                color_discrete_map=color_discrete_lks,
+                width = 10,
+                ).data[0],
                 
             
-    #        )    
+            )    
     if whichMap == "sat":
         fig.update_layout(
             mapbox_style="satellite-streets",
