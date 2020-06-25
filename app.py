@@ -660,7 +660,11 @@ tab2=html.Div([
                             labelStyle={"display": "inline-block"},
                             className="dcc_control"
                             
-                        ),
+                        ), html.A(html.Button('Get Route'),
+    #href='https://github.com/czbiohub/singlecell-dash/issues/new',
+    id = 'gap_dir',target='_blank',
+    )
+
                         # dcc.RadioItems(
                         #     id="popratiostate",
                         #     options=popOPTS,
@@ -741,6 +745,8 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
 )
 
 server = app.server
+
+
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -1176,7 +1182,28 @@ def updatePolyLk(whichPolygon):
     dat = allLeaks[allLeaks.POLYGON==str(whichPolygon)]
     return "Number of Leaks: " + str(dat.shape[0])
 
+@app.callback(
+    dash.dependencies.Output('gap_dir', 'href'),
+    [dash.dependencies.Input('whichPolyGap', 'value'),
+     dash.dependencies.Input('gapGraph', 'hoverData')
+     ])
+                  
+def giveGAPURL(whichPoly,whichGap):
+    plk = int(whichGap['points'][0]['customdata'][0])
+    usegap = allGaps.loc[allGaps.POLYGON == whichPoly,:]
+    usegapsmall = usegap.loc[usegap.portion==plk,:]
     
+    usegapsmall.reset_index().lon[0]
+    
+    lon = str(usegapsmall.reset_index().lon[0])
+
+    lat =  str(usegapsmall.reset_index().lat[0])
+    
+    url = 'https://www.google.com/maps/dir//' + lat + ',' + lon + '/@' + lat + ',' + lon + ',13z/data=!4m7!4m6!1m0!1m3!2m2!1d-86.5940475!2d33.7491112!3e0'
+    return(url)
+    
+
+
 if __name__ == '__main__':
     app.run_server(debug=False)
 
