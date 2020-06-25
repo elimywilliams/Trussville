@@ -681,16 +681,16 @@ tab2=html.Div([
                     [
                         html.Div(
                             [
-                                # html.Div(
-                                #     [html.H6(id="well_text"), html.P("State:")],
-                                #     id="stateName",
-                                #     className="mini_container",
-                                # ),
-                                # html.Div(
-                                #     [html.H6(id="gasText"), html.P("Status:")],
-                                #     id="stateStatus",
-                                #     className="mini_container",
-                                # ),
+                                 html.Div(
+                                     [html.H6(id="well_text"), html.P("Polygon:")],
+                                     id="polyname",
+                                     className="mini_container",
+                                 ),
+                                 html.Div(
+                                     [html.H6(id="gasText"), html.P("Groups of Gaps:")],
+                                     id="gapStatus",
+                                     className="mini_container",
+                                 ),
                                 # html.Div(
                                 #     [html.H6(id="oilText"), html.P("")],
                                 #     id="oil",
@@ -743,8 +743,6 @@ tab2=html.Div([
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_callback_exceptions=True,
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
-
-server = app.server
 
 
 app.layout = html.Div(
@@ -1181,6 +1179,21 @@ def updateText(whichPolygon):
 def updatePolyLk(whichPolygon):
     dat = allLeaks[allLeaks.POLYGON==str(whichPolygon)]
     return "Number of Leaks: " + str(dat.shape[0])
+
+@app.callback(dash.dependencies.Output('polyname', 'children'),
+              [dash.dependencies.Input('whichPolyGap', 'value')]
+              )
+def updateGapText(whichPolygon):
+    return "Polygon " + str(whichPolygon[1:])
+
+@app.callback(dash.dependencies.Output('gapStatus', 'children'),
+              [dash.dependencies.Input('whichPolyGap', 'value')]
+              )
+def updateGapText2(whichPolygon):
+    num = len(gapsDict[whichPolygon])
+    return "Number of Gap Groups: " + str(num)
+
+
 
 @app.callback(
     dash.dependencies.Output('gap_dir', 'href'),
