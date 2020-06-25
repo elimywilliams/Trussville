@@ -715,33 +715,32 @@ tab2=html.Div([
                     className="pretty_container seven columns",
                 ),
                 html.Div(
-                    [dcc.Graph(id='hover-data-plot')],#,id="hover-data-plot")],
+                    [dcc.Graph(id='hoverGapPlot')],#,id="hover-data-plot")],
                     className="pretty_container five columns"
                 ),
             ],
             className="row flex-display",
         ),
-        # html.Div(
-        #     [
-        #         html.Div(
-        #             [dcc.Graph(id="pie_graph2")],
-        #             className="pretty_container seven columns",
-        #         ),
+         html.Div(
+             [
+            html.Div(id='hover-gap-info',
+                     #[dcc.Markdown(id="hover-data-info")],
+                     className="pretty_container seven columns",
+                 ),
         #         html.Div(
         #             [dcc.Graph(id="aggregate_graph")],
         #             className="pretty_container five columns",
         #         ),
-        #     ],
-        #     className="row flex-display",
-        # )
+             ],
+             className="row flex-display",
+         )
         ])
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_callback_exceptions=True,
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-server= app.server
-
+server = app.server
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -972,13 +971,14 @@ def newGapGraph(whichPolygon,whichMap,whichGapPack):
             fig = px.line_mapbox(use,
                 lon = 'lon',
                 lat = 'lat',
-                zoom = 13,
+                zoom = 14,
                 color = 'POLYGON',
                 color_discrete_map=color_discrete_lks,
-                width = 10,
+                width = 50,
+                hover_data = {'portion'}
                 )
             fig.update_layout(
-             autosize=True,
+             #autosize=True,
              width = 800,
              height = 800,
              showlegend = False,
@@ -990,10 +990,12 @@ def newGapGraph(whichPolygon,whichMap,whichGapPack):
                 px.line_mapbox(use,
                     lon = 'lon',
                     lat = 'lat',
-                    zoom = 10,
+                    zoom = 14,
                     color = 'POLYGON',
                     color_discrete_map=color_discrete_lks,
-                    width = 10,
+                    width = 50,
+                    hover_data = {'portion'}
+
                     ).data[0],
                 )    
     if whichMap == "sat":
@@ -1002,91 +1004,52 @@ def newGapGraph(whichPolygon,whichMap,whichGapPack):
            )
 
     return(fig)
- 
-# =============================================================================
-# @app.callback(dash.dependencies.Output('gapGraph', 'figure'),
-#               [dash.dependencies.Input('whichPolyGap', 'value'),
-#                dash.dependencies.Input('whichMapGap', 'value'),
-#                dash.dependencies.Input('whichGapPack','value')
-#                ]
-#               )
-# 
-# 
-# def update_gapLeak(whichPolygon,whichMap,whichGaps):
-#     if whichPolygon == "P1" and whichMap == 'sat':
-#             return(figP1_st)
-#     elif whichPolygon == "P1" and whichMap != 'sat':
-#             return(figP1)
-#     elif whichPolygon == "P2" and whichMap == 'sat':
-#             return(figP2_st)
-#     elif whichPolygon == "P2" and whichMap != 'sat':
-#             return(figP2)
-#     elif whichPolygon == "P3" and whichMap == 'sat':
-#             return(figP3_st)
-#     elif whichPolygon == "P3" and whichMap != 'sat':
-#             return(figP3)
-#     elif whichPolygon == "P4" and whichMap == 'sat':
-#             return(figP4_st)
-#     elif whichPolygon == "P4" and whichMap != 'sat':
-#             return(figP4)
-#     
-#     #usedat = llLeaks.loc[allLeaks.POLYGON == whichPolygon,:]    
-#     #usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
-#      
-#  #    usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
-#  #    usepoly2 = usepoly.loc[usepoly.portion == 3,:]
-#     
-#  #    if whichMap == 'sat':
-#  #        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-#  #                              'P4': 'rgb(255,0,0)'}
-#  #        color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
-#  #                              'P4': 'rgb(255,255,255)'}
-#  #    elif whichMap != 'sat':
-#  #        color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
-#  #                              'P4': 'rgb(0, 0, 99)'}
-#  #        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-#  #                              'P4': 'rgb(255,0,0)'}
-#     
-#  #    fig = px.line_mapbox(
-#  #        usepoly2,
-#  #        lon = 'lat',
-#  #        lat = 'lon',
-#  #        zoom = 12,
-#  #        color = 'POLYGON',
-#  #        color_discrete_map=color_discrete_map
-#  #            )
-#     
-#  #    fig.update_layout(
-#  #        autosize=True,
-#  #        width = 800,
-#  #        height = 800,
-#  #        showlegend = False,
-#         
-#  #        )
-#  #    for x in range(usegap.portion.drop_duplicates().size):
-#  #        i = x+1
-#  #        use = usegap.loc[usegap.portion == i,]
-#  #        fig.add_trace(
-#  #            px.line_mapbox(use,
-#  #                lon = 'lon',
-#  #                lat = 'lat',
-#  #                zoom = 10,
-#  #                color = 'POLYGON',
-#  #                color_discrete_map=color_discrete_lks,
-#  #                width = 10,
-#  #                ).data[0],
-#                 
-#             
-#  #            )    
-#  #    if whichMap == "sat":
-#  #        fig.update_layout(
-#  #            mapbox_style="satellite-streets",
-#  # )
-# 
-# 
-# 
-# =============================================================================
 
+@app.callback(
+    dash.dependencies.Output('hoverGapPlot', 'figure'),
+    [dash.dependencies.Input('gapGraph', 'hoverData'),
+      dash.dependencies.Input('whichPolyGap', 'value'),
+      dash.dependencies.Input('whichMapGap', 'value')])
+    
+def updateGapHover(hoverData,whichGap,whichMap):
+    plk = int(hoverData['points'][0]['customdata'][0])
+    usegap = allGaps.loc[allGaps.POLYGON == whichGap,:]
+    usegapsmall = usegap.loc[usegap.portion==plk,:]
+    if whichMap == 'sat':
+        color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
+                              'P4': 'rgb(255,0,0)'}
+        color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
+                              'P4': 'rgb(255,255,255)'}
+    elif whichMap != 'sat':
+        color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
+                              'P4': 'rgb(0, 0, 99)'}
+
+    fig = px.line_mapbox(usegapsmall,
+        lon = 'lon',
+        lat = 'lat',
+        zoom = 18,
+        color = 'POLYGON',
+        color_discrete_map=color_discrete_lks,
+        width = 50
+        #hover_data = {'portion'}
+        )
+    fig.update_layout(
+     #autosize=True,
+     width = 800,
+     height = 800,
+     showlegend = False,
+   
+    )
+            
+      
+    if whichMap == "sat":
+       fig.update_layout(
+           mapbox_style="satellite-streets",
+           )
+
+    return(fig)
+
+ 
 
 
 # =============================================================================
@@ -1183,7 +1146,14 @@ def giveURL(whichPoly,whichLeak):
     url = 'https://www.google.com/maps/dir//' + lat + ',' + lon + '/@' + lat + ',' + lon + ',13z/data=!4m7!4m6!1m0!1m3!2m2!1d-86.5940475!2d33.7491112!3e0'
     return(url)
 
-
+@app.callback(
+    dash.dependencies.Output('hover-gap-info', 'children'),
+    [dash.dependencies.Input('gapGraph', 'hoverData')])
+def updateHoverInfo(hoverData):
+     plk = hoverData['points'][0]['customdata']
+     title = plk
+     return title
+ 
 
 @app.callback(
     dash.dependencies.Output('hover-data-info', 'children'),
