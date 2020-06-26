@@ -27,9 +27,10 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',
                         ]
 px.set_mapbox_access_token('pk.eyJ1IjoiZXdpbGxpYW1zMjAyMCIsImEiOiJja2FpdTIxOXMwM2wzMnFtbmVmb3IzZDJ6In0.TVsQ-iu8bN4PQLkBCr6tQQ')
 
-allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaks.csv')
+#allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaks.csv')
 allPoly = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allPoly.csv')
 allGaps = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allGaps.csv')
+
 allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaksWin.csv')
 
 gaps2a = list(range(42,57+1)) + list(range(74,75))
@@ -64,6 +65,40 @@ gaps4a = list(range(18,22+1))
 gaps4b = list(range(6,17+1)) 
 gaps4c = list(range(1,5+1)) +list(range(23,33+1))
 
+gaps5a = list(range(93,105+1))
+gaps5b = list(range(108,109+1)) +list(range(135,142+1))
+gaps5c = list(range(110,135+1)) 
+gaps5d = list(range(89,92+1)) +list(range(106,107+1))
+gaps5e = list(range(7,8+1)) +list(range(83,88+1))+list(range(143,144+1))+list(range(147,148))
+gaps5f = list(range(74,82+1))
+gaps5g = list(range(3,6+1)) +list(range(9,10+1))+list(range(47,48+1))
+gaps5h = list(range(49,56+1)) +list(range(72,73+1))
+gaps5i = list(range(57,71+1))
+gaps5j = list(range(1,2+1)) + list(range(11,22+1))
+gaps5k = list(range(37,46+1))
+gaps5l = list(range(23,36+1))
+
+
+gaps58a = list(range(69,73+1)) + list(range(97,123+1))
+gaps58b = list(range(56,68+1)) 
+gaps58c = list(range(50,55+1)) +list(range(78,88+1))+list(range(92,96+1))
+gaps58d = list(range(39,47+1))
+gaps58e = list(range(74,76+1)) 
+gaps58f = list(range(1,5+1)) + list(range(77,78)) + list(range(89,91+1))
+gaps58g = list(range(6,12+1)) +list(range(34,38+1))
+gaps58h = list(range(13,33+1)) 
+
+
+gaps59a = list(range(80,85+1))
+gaps59b = list(range(86,111+1)) 
+gaps59c = list(range(71,79+1)) +list(range(113,114+1))
+gaps59d = list(range(57,70+1)) +list(range(115,117+1))
+gaps59e = list(range(43,56+1)) +list(range(130,132+1))+list(range(146,148+1))
+gaps59f = list(range(38,42+1)) +list(range(120,129+1))+list(range(133,145+1))
+gaps59g = list(range(28,37+1)) +list(range(121,124+1))
+gaps59h = list(range(1,5+1)) +list(range(125,128+1))
+gaps59i = list(range(13,16+1))+ list(range(21,27+1))
+gaps59j = list(range(5,12+1)) + list(range(17,20+1)) + list(range(149,151+1))
 
 
 gaps1Dict = {'1':gaps1a,
@@ -98,12 +133,55 @@ gaps4Dict = {'1':gaps4a,
              '2':gaps4b,
              '3':gaps4c,
              }
+gaps5Dict = {'1':gaps5a,
+             '2':gaps5b,
+             '3':gaps5c,
+             '4':gaps5d,
+             '5':gaps5e,
+             '6':gaps5f,
+             '7':gaps5g,
+             '8':gaps5h,
+             '9':gaps5i,
+             '10':gaps5j,
+             '11':gaps5k,
+             '12':gaps5l,
+             }
+
+gaps58Dict = {'1':gaps58a,
+             '2':gaps58b,
+             '3':gaps58c,
+             '4':gaps58d,
+             '5':gaps58e,
+             '6':gaps58f,
+             '7':gaps58g,
+             '8':gaps58h,
+    
+             }
+
+gaps59Dict = {'1':gaps59a,
+             '2':gaps59b,
+             '3':gaps59c,
+             '4':gaps59d,
+             '5':gaps59e,
+             '6':gaps59f,
+             '7':gaps59g,
+             '8':gaps59h,
+             '9':gaps59i,
+             '10':gaps59j,
+             }
+
+
 
 gapsDict = {'P1': gaps1Dict,
             'P2': gaps2Dict,
             'P3': gaps3Dict,
-            'P4': gaps4Dict
+            'P4': gaps4Dict,
+            'P5': gaps5Dict,
+            'P58': gaps58Dict,
+            'P59': gaps59Dict
+
     }
+
 
 
 
@@ -122,40 +200,11 @@ gapsDict = {'P1': gaps1Dict,
 import plotly.express as px
 import plotly.io as pio
 
-projOPTS = [
-            {'label': 'ACLARA (NY)', 'value': 'Aclara'},
-            {'label': 'Con Edison', 'value': 'ConEd'},
-            #{'label': 'CPS (TX)', 'value': 'CPS_TX'},
+projOPTS = [        ]
 
-            {'label': 'Dom Questar (UT)', 'value': 'DomQuest'},
-            
-            #{'label': 'Dominion (NC)', 'value': 'DominionNC'},
-            #{'label': 'Dominion (SC)', 'value': 'DominionSC'},
-            
-            {'label': 'Duke IPI', 'value': 'DukeIPI'},
-            {'label': 'Duke Ohio', 'value': 'DukeOH'},
-            {'label': 'Norwhich Public Utilities', 'value': 'norwhich'},
+whichAvgOPTS = []
 
-            {'label': 'Peoples (IL)', 'value': 'PeoplesIL'},
-            #{'label': 'Trussville (AL)', 'value': 'Trussville'},
-
-            {'label': 'WEC Energy (WI)', 'value': 'WEC_WI'},
-            {'label': 'WPS MMD (WI)', 'value': 'WPS_WI'}
-        ]
-
-whichAvgOPTS = [
-        {'label': '7 Day Avg ', 'value': 'sevenday'},
-        {'label': '3 Day Avg', 'value': 'threeday'},
-        {'label': 'Daily ', 'value': 'daily'},
-        {'label': 'Cumulative ','value':'total'}
-    ]
-
-popOPTS = [
-    {'label':'Relative to Population','value':'relpop'},
-    {'label':'Raw Cases', 'value':'nonrelpop'}
-    
-    
-    ]
+popOPTS = [ ]
 
 whichMapOPTS = [
     {'label':'Satellite Map','value':'sat'},
@@ -163,36 +212,24 @@ whichMapOPTS = [
        
     ]
 
-countryOPTS = [
-            {'label': 'United States of America', 'value': 'US'},
-            {'label': 'Italy', 'value': 'Italy'},
-
-            {'label': 'Spain', 'value': 'Spain'},
-            {'label': 'United Kingdom', 'value': 'United Kingdom'},
-
-            {'label': 'Australia', 'value': 'Australia'},
-
-            
-            {'label': 'Sweden', 'value': 'Sweden'},
-            {'label': 'Switzerland', 'value': 'Switzerland'},
-            {'label': 'Austria', 'value': 'Austria'},
-            {'label': 'France', 'value': 'France'},
-            {'label': 'Germany', 'value': 'Germany'},
-            {'label': 'Turkey', 'value': 'Turkey'},
-            
-            {'label': 'New Zealand', 'value': 'New Zealand'},
-            ]
+countryOPTS = [  ]
 
 stateOPTS = [
     {'label':'Polygon 1','value':"P1"},
     {'label':'Polygon 2','value':"P2"},
     {'label':'Polygon 3','value':"P3"},
-    {'label':'Polygon 4','value':"P4"}
+    {'label':'Polygon 4','value':"P4"},
+    {'label':'Polygon 5','value':"P5"},
+    {'label':'Polygon 58','value':"P58"},
+    {'label':'Polygon 59','value':"P59"}
+
     ]
 
 
 fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(), 'P2': allLeaks.loc[allLeaks.POLYGON == "P2",].LEAKNUM.unique(),
-             'P3': allLeaks.loc[allLeaks.POLYGON == "P3",].LEAKNUM.unique(),'P4': allLeaks.loc[allLeaks.POLYGON == "P4",].LEAKNUM.unique()
+             'P3': allLeaks.loc[allLeaks.POLYGON == "P3",].LEAKNUM.unique(),'P4': allLeaks.loc[allLeaks.POLYGON == "P4",].LEAKNUM.unique(),
+             'P5': allLeaks.loc[allLeaks.POLYGON == "P5",].LEAKNUM.unique(),'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
+             'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
                        
              }
 names = list(fnameDict.keys())
@@ -207,7 +244,13 @@ gnameDict = {'P1':list(range(1,int(allGaps.loc[allGaps.POLYGON == 'P1',].portion
 gsizeDict = {'P1':allGaps.loc[allGaps.POLYGON=='P1',].portion.unique().size,
              'P2':allGaps.loc[allGaps.POLYGON=='P2',].portion.unique().size,
              'P3':allGaps.loc[allGaps.POLYGON=='P3',].portion.unique().size,
-             'P4':allGaps.loc[allGaps.POLYGON=='P4',].portion.unique().size
+             'P4':allGaps.loc[allGaps.POLYGON=='P4',].portion.unique().size,    
+             'P5':allGaps.loc[allGaps.POLYGON=='P5',].portion.unique().size,
+             'P58':allGaps.loc[allGaps.POLYGON=='P58',].portion.unique().size,
+             'P59':allGaps.loc[allGaps.POLYGON=='P59',].portion.unique().size
+
+
+
              }
 
 
@@ -792,7 +835,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '6.23.20', style={"margin-top": "0px"}
+                                    '6.25.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
@@ -845,14 +888,17 @@ def render_content(tab):
 def update_polyLeak(whichPolygon,whichMap):
     usedat = allLeaks.loc[allLeaks.POLYGON == whichPolygon,:]
     color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-                          'P4': 'rgb(255,0,0)'}
+                          'P4': 'rgb(255,0,0)','P5': 'rgb(255,0,0)','P58': 'rgb(255,0,0)','P59': 'rgb(255,0,0)'}
     color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
-                          'P4': 'rgb(255,255,255)'}
+                          'P4': 'rgb(255,255,255)','P5': 'rgb(255,255,255)','P58': 'rgb(255,255,255)','P59': 'rgb(255,255,255)'}
     color_discrete_lks_ns= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
-                          'P4': 'rgb(0, 0, 99)'}
+                          'P4': 'rgb(0, 0, 99)','P5': 'rgb(0, 0, 99)','P58': 'rgb(0, 0, 99)','P59': 'rgb(0, 0, 99)'}
     
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
     usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+    if whichPolygon == "P5" or whichPolygon == "P58" or whichPolygon == "P59":
+            usepoly2 = usepoly.loc[usepoly.portion == 1,:]
+
     if whichMap == 'sat':
         fig = px.line_mapbox(
             usepoly2,
@@ -930,7 +976,7 @@ def updateGapOpts(whichPoly):
                ]
               )
 def newGapGraph(whichPolygon,whichMap,whichGapPack):
-    totalGps = gsizeDict[whichPolygon]
+   #totalGps = gsizeDict[whichPolygon]
     gapwoo = gapsDict[whichPolygon][str(whichGapPack)]
     # count = 0    
     # for i in range(0,totalGps+1,10):
@@ -1021,13 +1067,15 @@ def updateGapHover(hoverData,whichGap,whichMap):
     usegapsmall = usegap.loc[usegap.portion==plk,:]
     if whichMap == 'sat':
         color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-                              'P4': 'rgb(255,0,0)'}
+                          'P4': 'rgb(255,0,0)','P5': 'rgb(255,0,0)','P58': 'rgb(255,0,0)','P59': 'rgb(255,0,0)'}
         color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
-                              'P4': 'rgb(255,255,255)'}
+                          'P4': 'rgb(255,255,255)','P5': 'rgb(255,255,255)','P58': 'rgb(255,255,255)','P59': 'rgb(255,255,255)'}
+    
     elif whichMap != 'sat':
         color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
-                              'P4': 'rgb(0, 0, 99)'}
+                          'P4': 'rgb(0, 0, 99)','P5': 'rgb(0, 0, 99)','P58': 'rgb(0, 0, 99)','P59': 'rgb(0, 0, 99)'}
 
+    
     fig = px.line_mapbox(usegapsmall,
         lon = 'lon',
         lat = 'lat',
@@ -1099,14 +1147,14 @@ def updatePlot(whichPoly,whichLeak,whichMap):
      dat = dat2.loc[dat2.LEAKNUM == whichLeak,]
      if whichMap == 'sat':
         color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-                              'P4': 'rgb(255,0,0)'}
+                          'P4': 'rgb(255,0,0)','P5': 'rgb(255,0,0)','P58': 'rgb(255,0,0)','P59': 'rgb(255,0,0)'}
         color_discrete_lks= {'P1': 'rgb(255,255,255)', 'P2': 'rgb(255,255,255)', 'P3': 'rgb(255,255,255)',
-                              'P4': 'rgb(255,255,255)'}
+                          'P4': 'rgb(255,255,255)','P5': 'rgb(255,255,255)','P58': 'rgb(255,255,255)','P59': 'rgb(255,255,255)'}
+    
      elif whichMap != 'sat':
-         color_discrete_lks= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
-                              'P4': 'rgb(0, 0, 99)'}
-         color_discrete_map = {'P1': 'rgb(255,0,0)', 'P2': 'rgb(255,0,0)', 'P3': 'rgb(255,0,0)',
-                              'P4': 'rgb(255,0,0)'}
+        color_discrete_lks_ns= {'P1': 'rgb(0, 0, 99)', 'P2': 'rgb(0, 0, 99)', 'P3': 'rgb(0, 0, 99)',
+                          'P4': 'rgb(0, 0, 99)','P5': 'rgb(0, 0, 99)','P58': 'rgb(0, 0, 99)','P59': 'rgb(0, 0, 99)'}
+
      #dat = allLeaks[allLeaks.PolyLK==str(plk)]
      #dat=allLeaks
      title = "Leak " + str(whichLeak) + '. '+ " Location: " + str(float(dat.reset_index().loc[0,['Latitude']])) + ',' + str(float(dat.reset_index().loc[0,['Longitude']]))
