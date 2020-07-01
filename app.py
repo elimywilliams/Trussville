@@ -297,16 +297,17 @@ tab1=html.Div([
     #href='https://github.com/czbiohub/singlecell-dash/issues/new',
     id = 'map_dir',target='_blank',
     ),
-#                        html.Div( [
-#     dcc.ConfirmDialogProvider(
-#         children=html.Button(
-#             'Confirm: Leak Checked',
-#         ),
-#         id='danger-provider',
-#         message='Danger danger! Are you sure you want to continue?'
-#     ),
-#     html.Div(id='output-provider')
-# ],className = 'dcc_control')
+                        html.Div( [
+    dcc.ConfirmDialogProvider(
+        children=html.Button(
+            'Confirm: Leak Checked',
+            id = 'submit_button',
+        ),
+        id='danger-provider',
+        message='Danger danger! Are you sure you want to continue?'
+    ),
+    html.Div(id='output-provider')
+],className = 'dcc_control')
 
                        # dcc.RadioItems(
                        #     id="popratiostate",
@@ -423,7 +424,19 @@ tab2=html.Div([
                         ), html.A(html.Button('Get Route'),
     #href='https://github.com/czbiohub/singlecell-dash/issues/new',
     id = 'gap_dir',target='_blank',
-    )
+    ),
+                                   html.Div( [
+    dcc.ConfirmDialogProvider(
+        children=html.Button(
+            'Confirm: Leak Checked',
+            id = 'submit_button2',
+        ),
+        id='danger-provider2',
+        message='Danger danger! Are you sure you want to continue?'
+    ),
+    html.Div(id='output-provider2')
+],className = 'dcc_control')
+
 
                         # dcc.RadioItems(
                         #     id="popratiostate",
@@ -504,7 +517,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-server= app.server
+server = app.server
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -552,7 +565,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '6.29.20', style={"margin-top": "0px"}
+                                    '7.01.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
@@ -892,7 +905,7 @@ def updateGapText2(whichPolygon):
     num = allGaps.loc[allGaps.POLYGON == whichPolygon,:].portion.drop_duplicates().shape[0]
     return "Number of Gaps: " + str(num)
 
-
+    
 
 @app.callback(
     dash.dependencies.Output('gap_dir', 'href'),
@@ -917,6 +930,8 @@ def giveGAPURL(whichPoly,whichGap):
     
     url = 'https://www.google.com/maps/dir//' + lat + ',' + lon + '/@' + lat + ',' + lon + ',13z/data=!4m7!4m6!1m0!1m3!2m2!1d-86.5940475!2d33.7491112!3e0'
     return(url)
+
+
     
 @app.callback(
     dash.dependencies.Output('danger-provider', 'message'),
@@ -925,17 +940,34 @@ def giveGAPURL(whichPoly,whichGap):
      ]
     )
 def whichDanger(polygon,leak):
-    return(str("Confirm: I checked leak number: " + str(leak) + ' in polygon ' + str(polygon[1:])))
+    if not polygon or not leak:
+        return (str("Please Choose a Polygon and Leak"))
+    return(str("Confirm: I checked Leak Number: " + str(leak) + ' in Polygon ' + str(polygon[1:])))
     #return('hi')
     #return({'message':'hi'})
     
-# @app.callback(dash.dependencies.Output('output-provider', 'children'),
-#               [dash.dependencies.Input('danger-provider', 'submit_n_clicks'),
-#                dash.dependencies.Input('whichPoly', 'value'),
-#                dash.dependencies.Input('opt-dropdown', 'value')])
-# def update_output(submit_n_clicks,whichPoly,whichLeak):
-#     if not submit_n_clicks:
-#         return ''
+@app.callback(
+    dash.dependencies.Output('danger-provider2', 'message'),
+    [dash.dependencies.Input('whichPolyGap', 'value'),
+     dash.dependencies.Input('whichGapPack', 'value')
+     ]
+    )
+def whichDanger2(polygon,gap):
+    if not polygon or not gap:
+        return (str("Please Choose a Polygon and Gap"))
+    
+    return(str("Confirm: I checked Gap Number: " + str(gap) + ' in Polygon ' + str(polygon[1:])))
+    #return('hi')
+    #return({'message':'hi'})
+    
+    
+@app.callback(dash.dependencies.Output('output-provider', 'children'),
+              [dash.dependencies.Input('danger-provider', 'submit_n_clicks'),
+                dash.dependencies.Input('whichPoly', 'value'),
+                dash.dependencies.Input('opt-dropdown', 'value')])
+def update_output(submit_n_clicks,whichPoly,whichLeak):
+     if not submit_n_clicks:
+         return ''
 #     whichDone = allLeaks.loc[(allLeaks.LEAKNUM == whichLeak )& (allLeaks.POLYGON == whichPoly),:]
 #     whichDonePull = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/leakLog.csv')
 #     curdate = datetime.utcnow().strftime("%m-%d-%y")
@@ -945,10 +977,41 @@ def whichDanger(polygon,leak):
 #     whichDonePush = whichDonePull.append(df).reset_index().loc[:,['Date','Time','Polygon','LeakNumber','LeakID','geometry']]
 #     whichDonePush.to_csv()
 
-#     return """
-#         It was dangerous but we did it!
-#         Submitted {} times
-#     """.format(submit_n_clicks)
+     return """
+         Leak Check Confirmed 
+     """.format(submit_n_clicks)
+     
+@app.callback(dash.dependencies.Output('output-provider2', 'children'),
+              [dash.dependencies.Input('danger-provider2', 'submit_n_clicks'),
+                dash.dependencies.Input('whichPolyGap', 'value'),
+                dash.dependencies.Input('whichGapPack', 'value')])
+def update_output2(submit_n_clicks,whichPoly,whichLeak):
+     if not submit_n_clicks:
+         return ''
+#     whichDone = allLeaks.loc[(allLeaks.LEAKNUM == whichLeak )& (allLeaks.POLYGON == whichPoly),:]
+#     whichDonePull = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/leakLog.csv')
+#     curdate = datetime.utcnow().strftime("%m-%d-%y")
+#     curtime = datetime.utcnow().strftime("%H:%M:%S")
+#     d = {'Date': [curdate],'Time': [curtime], 'Polygon':[whichDone.POLYGON[0]], 'LeakNumber':[whichDone.LEAKNUM[0]], 'LeakID':[whichDone.PolyLK[0]], 'geometry': [whichDone.geometry[0]]}
+#     df = pd.DataFrame(data=d)
+#     whichDonePush = whichDonePull.append(df).reset_index().loc[:,['Date','Time','Polygon','LeakNumber','LeakID','geometry']]
+#     whichDonePush.to_csv()
+
+     return """
+         Gap Check Confirmed 
+     """.format(submit_n_clicks)
+     
+@app.callback(dash.dependencies.Output('danger-provider', 'submit_n_clicks'),
+              [dash.dependencies.Input('whichPoly', 'value'),
+                dash.dependencies.Input('opt-dropdown', 'value')])
+def updateSubmit(whichPoly,whichLeak):
+     return 0 
+     
+@app.callback(dash.dependencies.Output('danger-provider2', 'submit_n_clicks'),
+              [dash.dependencies.Input('whichPolyGap', 'value'),
+                dash.dependencies.Input('whichGapPack', 'value')])
+def updateSubmit2(whichPoly,whichGap):
+     return 0 
 
 if __name__ == '__main__':
     app.run_server(debug=False)
