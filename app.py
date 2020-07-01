@@ -428,7 +428,7 @@ tab2=html.Div([
                                    html.Div( [
     dcc.ConfirmDialogProvider(
         children=html.Button(
-            'Confirm: Leak Checked',
+            'Confirm: Gap Checked',
             id = 'submit_button2',
         ),
         id='danger-provider2',
