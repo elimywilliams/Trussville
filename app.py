@@ -211,19 +211,28 @@ stateOPTS = [
     {'label':'Polygon 3','value':"P3"},
     {'label':'Polygon 4','value':"P4"},
     {'label':'Polygon 5','value':"P5"},
+    {'label':'Polygon 7','value':"P7"},
+    {'label':'Polygon 8','value':"P8"},
+    {'label':'Polygon 10','value':"P10"},
+    {'label':'Polygon 11','value':"P11"},
+    {'label':'Polygon 22','value':"P22"},
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
+
 
     ]
                             #options=[{'label':opt, 'value':opt} for opt in nestedOptions],
 
-polyOPTS = [{'label':str('Polygon ') + str(x),'value':str('P')+str(x)} for x in list(range(1,22+1))+list(range(24,60+1))]
+polyOPTS = [{'label':str('Polygon ') + str(x),'value':str('P')+str(x)} for x in list(range(1,60+1))]
 
 
 fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(), 'P2': allLeaks.loc[allLeaks.POLYGON == "P2",].LEAKNUM.unique(),
              'P3': allLeaks.loc[allLeaks.POLYGON == "P3",].LEAKNUM.unique(),'P4': allLeaks.loc[allLeaks.POLYGON == "P4",].LEAKNUM.unique(),
              'P5': allLeaks.loc[allLeaks.POLYGON == "P5",].LEAKNUM.unique(),'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
-             'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
+             'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique(),'P7': allLeaks.loc[allLeaks.POLYGON == "P7",].LEAKNUM.unique(),
+             'P8': allLeaks.loc[allLeaks.POLYGON == "P8",].LEAKNUM.unique(),'P10': allLeaks.loc[allLeaks.POLYGON == "P10",].LEAKNUM.unique(),
+             'P11': allLeaks.loc[allLeaks.POLYGON == "P11",].LEAKNUM.unique(),'P22': allLeaks.loc[allLeaks.POLYGON == "P22",].LEAKNUM.unique(),
+             'P23': allLeaks.loc[allLeaks.POLYGON == "P23",].LEAKNUM.unique()
                        
              }
 
@@ -518,6 +527,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
 )
 
 server = app.server
+
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -565,7 +575,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '7.01.20', style={"margin-top": "0px"}
+                                    '7.07.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
@@ -625,9 +635,14 @@ def update_polyLeak(whichPolygon,whichMap):
         
         
     usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
-    usepoly2 = usepoly.loc[usepoly.portion == 3,:]
-    if whichPolygon == "P5" or whichPolygon == "P58" or whichPolygon == "P59":
-            usepoly2 = usepoly.loc[usepoly.portion == 1,:]
+    usepoly2 = usepoly.loc[usepoly.portion == 1,:]
+    if whichPolygon == 'P2':
+        usepoly2 = usepoly.loc[usepoly.portion == 1,:]
+
+    if whichPolygon == "P5" or whichPolygon == "P58" or whichPolygon == "P59" or whichPolygon == "P8" or whichPolygon == "P7" or whichPolygon == "P10" or whichPolygon == "P11":
+        usepoly2 = usepoly.loc[usepoly.portion == 1,:]
+    if whichPolygon == "P23":
+        usepoly2 = usepoly.loc[usepoly.portion == 3,:]
 
     fig = px.line_mapbox(
         usepoly2,
@@ -888,7 +903,7 @@ def updateText(whichPolygon):
               [dash.dependencies.Input('whichPoly', 'value')]
               )
 def updatePolyLk(whichPolygon):
-    dat = allLeaks[allLeaks.POLYGON==str(whichPolygon)]
+    dat = allLeaks.loc[allLeaks.POLYGON==str(whichPolygon),]
     return "Number of Leaks: " + str(dat.shape[0])
 
 @app.callback(dash.dependencies.Output('polyname', 'children'),
