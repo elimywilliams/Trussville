@@ -526,8 +526,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-server = app.server
-
+server = app.server 
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -575,7 +574,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '7.07.20', style={"margin-top": "0px"}
+                                    '7.14.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
@@ -708,31 +707,74 @@ def newGapGraph(whichPolygon,whichMap,whichGapPack):
     usegap = allGaps.loc[allGaps.POLYGON == whichPolygon,:]
     #usegapsmall = usegap[usegap['portion'].isin(gapwoo)]
     usegapsmall = usegap.loc[usegap['portion']== whichGapPack,:]
+    
+    if usegapsmall.loc[:,'multiple'].reset_index(drop=True)[0] == True:
+        firstgapsmall = usegapsmall.loc[usegapsmall.subportion == 1,]
+        secgapsmall = usegapsmall.loc[usegapsmall.subportion == 2,]
 
-    #usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
-    #usepoly2 = usepoly.loc[usepoly.portion == 3,:]
-    if whichMap == "sat":
-        color_discrete_lks = color_discrete_map_st
-    elif whichMap != 'sat':
-        color_discrete_lks = color_discrete_map_st
-    fig = px.line_mapbox(usegapsmall,
-                lon = 'lon',
-                lat = 'lat',
-                zoom = 16,
-                color = 'POLYGON',
-                color_discrete_map=color_discrete_lks,
-                width = 50,
-                hover_data = {'portion'}
-                )
-    fig.update_layout(
-             #autosize=True,
-             width = 800,
-             height = 800,
-             showlegend = False,
-                 
-       
-            )    
-    fig.update_traces(line=dict(width=6))
+        #usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+        #usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+        if whichMap == "sat":
+            color_discrete_lks = color_discrete_map_st
+        elif whichMap != 'sat':
+            color_discrete_lks = color_discrete_map_st
+        fig = px.line_mapbox(firstgapsmall,
+                    lon = 'lon',
+                    lat = 'lat',
+                    zoom = 16,
+                    color = 'POLYGON',
+                    color_discrete_map=color_discrete_lks,
+                    width = 50,
+                    hover_data = {'portion'}
+                    )
+        fig.update_layout(
+                 #autosize=True,
+                 width = 800,
+                 height = 800,
+                 showlegend = False,
+                     
+           
+                )    
+        fig.add_trace(
+                 px.line_mapbox(secgapsmall,
+                     lon = 'lon',
+                     lat = 'lat',
+                     zoom = 14,
+                     color = 'POLYGON',
+                     color_discrete_map=color_discrete_lks,
+                     width = 50,
+                     hover_data = {'portion'}
+
+                     ).data[0],
+                 ) 
+        fig.update_traces(line=dict(width=6))
+        
+    elif usegapsmall.loc[:,'multiple'].reset_index(drop=True)[0] == False:    
+        #usepoly = allPoly.loc[allPoly.POLYGON == whichPolygon,:]
+        #usepoly2 = usepoly.loc[usepoly.portion == 3,:]
+        if whichMap == "sat":
+            color_discrete_lks = color_discrete_map_st
+        elif whichMap != 'sat':
+            color_discrete_lks = color_discrete_map_st
+        fig = px.line_mapbox(usegapsmall,
+                    lon = 'lon',
+                    lat = 'lat',
+                    zoom = 16,
+                    color = 'POLYGON',
+                    color_discrete_map=color_discrete_lks,
+                    width = 50,
+                    hover_data = {'portion'}
+                    )
+        fig.update_layout(
+                 #autosize=True,
+                 width = 800,
+                 height = 800,
+                 showlegend = False,
+                     
+           
+                )    
+        
+        fig.update_traces(line=dict(width=6))
 
         
     # for x in usegapsmall.portion.unique():   
@@ -916,7 +958,7 @@ def updateGapText(whichPolygon):
               [dash.dependencies.Input('whichPolyGap', 'value')]
               )
 def updateGapText2(whichPolygon):
-    num = len(gapsDict[whichPolygon])
+    #num = len(gapsDict[whichPolygon])
     num = allGaps.loc[allGaps.POLYGON == whichPolygon,:].portion.drop_duplicates().shape[0]
     return "Number of Gaps: " + str(num)
 
