@@ -205,6 +205,7 @@ whichMapOPTS = [
 
 countryOPTS = [  ]
 
+
 stateOPTS = [
     {'label':'Polygon 1','value':"P1"},
     {'label':'Polygon 2','value':"P2"},
@@ -213,14 +214,21 @@ stateOPTS = [
     {'label':'Polygon 5','value':"P5"},
     {'label':'Polygon 7','value':"P7"},
     {'label':'Polygon 8','value':"P8"},
+    {'label':'Polygon 9','value':"P9"},
+
     {'label':'Polygon 10','value':"P10"},
     {'label':'Polygon 11','value':"P11"},
+    {'label':'Polygon 19','value':"P19"},
+    {'label':'Polygon 20','value':"P20"},
+    {'label':'Polygon 21','value':"P21"},
+
     {'label':'Polygon 22','value':"P22"},
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
 
 
     ]
+              
                             #options=[{'label':opt, 'value':opt} for opt in nestedOptions],
 
 polyOPTS = [{'label':str('Polygon ') + str(x),'value':str('P')+str(x)} for x in list(range(1,60+1))]
