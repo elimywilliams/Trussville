@@ -223,6 +223,8 @@ stateOPTS = [
     {'label':'Polygon 21','value':"P21"},
 
     {'label':'Polygon 22','value':"P22"},
+    {'label':'Polygon 23','value':"P23"},
+
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
 
@@ -582,7 +584,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '7.20.20', style={"margin-top": "0px"}
+                                    '7.23.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
