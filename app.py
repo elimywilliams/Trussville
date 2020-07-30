@@ -236,15 +236,26 @@ stateOPTS = [
 polyOPTS = [{'label':str('Polygon ') + str(x),'value':str('P')+str(x)} for x in list(range(1,60+1))]
 
 
-fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(), 'P2': allLeaks.loc[allLeaks.POLYGON == "P2",].LEAKNUM.unique(),
-             'P3': allLeaks.loc[allLeaks.POLYGON == "P3",].LEAKNUM.unique(),'P4': allLeaks.loc[allLeaks.POLYGON == "P4",].LEAKNUM.unique(),
-             'P5': allLeaks.loc[allLeaks.POLYGON == "P5",].LEAKNUM.unique(),'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
-             'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique(),'P7': allLeaks.loc[allLeaks.POLYGON == "P7",].LEAKNUM.unique(),
-             'P8': allLeaks.loc[allLeaks.POLYGON == "P8",].LEAKNUM.unique(),'P10': allLeaks.loc[allLeaks.POLYGON == "P10",].LEAKNUM.unique(),
-             'P11': allLeaks.loc[allLeaks.POLYGON == "P11",].LEAKNUM.unique(),'P22': allLeaks.loc[allLeaks.POLYGON == "P22",].LEAKNUM.unique(),
-             'P23': allLeaks.loc[allLeaks.POLYGON == "P23",].LEAKNUM.unique()
+fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(), 
+             'P2': allLeaks.loc[allLeaks.POLYGON == "P2",].LEAKNUM.unique(),
+             'P3': allLeaks.loc[allLeaks.POLYGON == "P3",].LEAKNUM.unique(),
+             'P4': allLeaks.loc[allLeaks.POLYGON == "P4",].LEAKNUM.unique(),
+             'P5': allLeaks.loc[allLeaks.POLYGON == "P5",].LEAKNUM.unique(),
+             'P7': allLeaks.loc[allLeaks.POLYGON == "P7",].LEAKNUM.unique(),
+             'P8': allLeaks.loc[allLeaks.POLYGON == "P8",].LEAKNUM.unique(),
+             'P9': allLeaks.loc[allLeaks.POLYGON == "P9",].LEAKNUM.unique(),
+             'P10': allLeaks.loc[allLeaks.POLYGON == "P10",].LEAKNUM.unique(),
+             'P11': allLeaks.loc[allLeaks.POLYGON == "P11",].LEAKNUM.unique(),
+             'P19': allLeaks.loc[allLeaks.POLYGON == "P19",].LEAKNUM.unique(),
+             'P20': allLeaks.loc[allLeaks.POLYGON == "P20",].LEAKNUM.unique(),
+             'P21': allLeaks.loc[allLeaks.POLYGON == "P21",].LEAKNUM.unique(),
+             'P22': allLeaks.loc[allLeaks.POLYGON == "P22",].LEAKNUM.unique(),
+             'P23': allLeaks.loc[allLeaks.POLYGON == "P23",].LEAKNUM.unique(),
+             'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
+             'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
                        
              }
+
 
 #fnameDict2 = [{x:allLeaks.loc[allLeaks.POLYGON == x].LEAKNUM.unique()} for x in checked]
 
