@@ -205,13 +205,14 @@ whichMapOPTS = [
 
 countryOPTS = [  ]
 
-
 stateOPTS = [
     {'label':'Polygon 1','value':"P1"},
     {'label':'Polygon 2','value':"P2"},
     {'label':'Polygon 3','value':"P3"},
     {'label':'Polygon 4','value':"P4"},
     {'label':'Polygon 5','value':"P5"},
+    {'label':'Polygon 6','value':"P6"},
+
     {'label':'Polygon 7','value':"P7"},
     {'label':'Polygon 8','value':"P8"},
     {'label':'Polygon 9','value':"P9"},
@@ -224,13 +225,21 @@ stateOPTS = [
 
     {'label':'Polygon 22','value':"P22"},
     {'label':'Polygon 23','value':"P23"},
-
+    
+    {'label':'Polygon 24','value':"P24"},
+    {'label':'Polygon 25','value':"P25"},
+    {'label':'Polygon 26','value':"P26"},
+    {'label':'Polygon 27','value':"P27"},
+    {'label':'Polygon 28','value':"P28"},
+    {'label':'Polygon 29','value':"P29"},
+    {'label':'Polygon 30','value':"P30"},
+    {'label':'Polygon 31','value':"P31"},
+    
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
 
 
     ]
-              
                             #options=[{'label':opt, 'value':opt} for opt in nestedOptions],
 
 polyOPTS = [{'label':str('Polygon ') + str(x),'value':str('P')+str(x)} for x in list(range(1,60+1))]
@@ -241,6 +250,8 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P3': allLeaks.loc[allLeaks.POLYGON == "P3",].LEAKNUM.unique(),
              'P4': allLeaks.loc[allLeaks.POLYGON == "P4",].LEAKNUM.unique(),
              'P5': allLeaks.loc[allLeaks.POLYGON == "P5",].LEAKNUM.unique(),
+             'P6': allLeaks.loc[allLeaks.POLYGON == "P6",].LEAKNUM.unique(),
+
              'P7': allLeaks.loc[allLeaks.POLYGON == "P7",].LEAKNUM.unique(),
              'P8': allLeaks.loc[allLeaks.POLYGON == "P8",].LEAKNUM.unique(),
              'P9': allLeaks.loc[allLeaks.POLYGON == "P9",].LEAKNUM.unique(),
@@ -251,11 +262,19 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P21': allLeaks.loc[allLeaks.POLYGON == "P21",].LEAKNUM.unique(),
              'P22': allLeaks.loc[allLeaks.POLYGON == "P22",].LEAKNUM.unique(),
              'P23': allLeaks.loc[allLeaks.POLYGON == "P23",].LEAKNUM.unique(),
+             'P24': allLeaks.loc[allLeaks.POLYGON == "P24",].LEAKNUM.unique(),
+             'P25': allLeaks.loc[allLeaks.POLYGON == "P25",].LEAKNUM.unique(),
+             'P26': allLeaks.loc[allLeaks.POLYGON == "P26",].LEAKNUM.unique(),
+             'P27': allLeaks.loc[allLeaks.POLYGON == "P27",].LEAKNUM.unique(),
+             'P28': allLeaks.loc[allLeaks.POLYGON == "P28",].LEAKNUM.unique(),
+             'P29': allLeaks.loc[allLeaks.POLYGON == "P29",].LEAKNUM.unique(),
+             'P30': allLeaks.loc[allLeaks.POLYGON == "P30",].LEAKNUM.unique(),
+             'P31': allLeaks.loc[allLeaks.POLYGON == "P31",].LEAKNUM.unique(),
+
              'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
              'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
                        
              }
-
 
 #fnameDict2 = [{x:allLeaks.loc[allLeaks.POLYGON == x].LEAKNUM.unique()} for x in checked]
 
@@ -547,7 +566,9 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,suppress_cal
                  meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 
-server = app.server 
+server = app.server
+
+
 app.layout = html.Div(
     [
         dcc.Store(id="aggregate_data"),
@@ -595,7 +616,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '7.30.20', style={"margin-top": "0px"}
+                                    '8.6.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
