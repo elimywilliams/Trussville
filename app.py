@@ -238,6 +238,8 @@ stateOPTS = [
     {'label':'Polygon 32','value':"P32"},
     {'label':'Polygon 33','value':"P33"},
     {'label':'Polygon 34','value':"P34"},
+    {'label':'Polygon 35','value':"P35"},
+
 
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
@@ -277,6 +279,7 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P32': allLeaks.loc[allLeaks.POLYGON == "P32",].LEAKNUM.unique(),
              'P33': allLeaks.loc[allLeaks.POLYGON == "P33",].LEAKNUM.unique(),
              'P34': allLeaks.loc[allLeaks.POLYGON == "P34",].LEAKNUM.unique(),
+             'P35': allLeaks.loc[allLeaks.POLYGON == "P35",].LEAKNUM.unique(),
 
              'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
              'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
@@ -623,7 +626,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '8.21.20', style={"margin-top": "0px"}
+                                    '8.26.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
