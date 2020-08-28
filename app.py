@@ -40,157 +40,6 @@ checked = []
 for x in range(0,len(allGaps.POLYGON.unique())):
     checked.append(allGaps.POLYGON.unique()[x])
 
-#### CREATING GROUPS OF GAPS
-gaps2a = list(range(42,57+1)) + list(range(74,75))
-gaps2b = list(range(29,41+1)) 
-gaps2c = list(range(60,69+1)) 
-gaps2d = list(range(9,12+1)) + list(range(14,28+1))
-gaps2e = list(range(5,8+1)) + list(range(58,59+1)) + list(range(70,73+1))
-gaps2f = list(range(42,57+1)) + list(range(74,75))
-
-gaps1a = list(range(1,4+1)) + list(range(7,9+1))+ list(range(108,131+1)) 
-gaps1b = list(range(5,6+1)) + list(range(10,17+1))+ list(range(50,54+1)) + list(range(107,108))
-gaps1c = list(range(29,49+1)) 
-gaps1d = list(range(18,28+1))
-gaps1e = list(range(105,106+1))
-gaps1f = list(range(67,100+1))
-gaps1g = list(range(55,66+1))
-
-gaps3a = list(range(76,92+1))
-gaps3b = list(range(72,75)) + list(range(102,105+1))
-gaps3c = list(range(68,71+1))
-gaps3d = list(range(93,101+1))
-gaps3e = list(range(59,67+1))+list(range(106,107))
-gaps3f = list(range(107,123))
-gaps3g = list(range(18,29)) + list(range(37,46+1))+ list(range(138,142+1))
-gaps3h = list(range(47,58+1)) + list(range(136,137+1))
-gaps3i = list(range(26,36+1)) + list(range(143,144))
-gaps3l = list(range(1,7+1)) + list(range(127,135+1))
-gaps3j = list(range(8,17+1)) + list(range(124,126+1))
-gaps3k = list(range(19,25+1)) 
-
-gaps4a = list(range(18,22+1)) 
-gaps4b = list(range(6,17+1)) 
-gaps4c = list(range(1,5+1)) +list(range(23,33+1))
-
-gaps5a = list(range(93,105+1))
-gaps5b = list(range(108,109+1)) +list(range(135,142+1))
-gaps5c = list(range(110,135+1)) 
-gaps5d = list(range(89,92+1)) +list(range(106,107+1))
-gaps5e = list(range(7,8+1)) +list(range(83,88+1))+list(range(143,144+1))+list(range(147,148))
-gaps5f = list(range(74,82+1))
-gaps5g = list(range(3,6+1)) +list(range(9,10+1))+list(range(47,48+1))
-gaps5h = list(range(49,56+1)) +list(range(72,73+1))
-gaps5i = list(range(57,71+1))
-gaps5j = list(range(1,2+1)) + list(range(11,22+1))
-gaps5k = list(range(37,46+1))
-gaps5l = list(range(23,36+1))
-
-
-gaps58a = list(range(69,73+1)) + list(range(97,123+1))
-gaps58b = list(range(56,68+1)) 
-gaps58c = list(range(50,55+1)) +list(range(78,88+1))+list(range(92,96+1))
-gaps58d = list(range(39,47+1))
-gaps58e = list(range(74,76+1)) 
-gaps58f = list(range(1,5+1)) + list(range(77,78)) + list(range(89,91+1))
-gaps58g = list(range(6,12+1)) +list(range(34,38+1))
-gaps58h = list(range(13,33+1)) 
-
-
-gaps59a = list(range(80,85+1))
-gaps59b = list(range(86,111+1)) 
-gaps59c = list(range(71,79+1)) +list(range(113,114+1))
-gaps59d = list(range(57,70+1)) +list(range(115,117+1))
-gaps59e = list(range(43,56+1)) +list(range(130,132+1))+list(range(146,148+1))
-gaps59f = list(range(38,42+1)) +list(range(120,129+1))+list(range(133,145+1))
-gaps59g = list(range(28,37+1)) +list(range(121,124+1))
-gaps59h = list(range(1,5+1)) +list(range(125,128+1))
-gaps59i = list(range(13,16+1))+ list(range(21,27+1))
-gaps59j = list(range(5,12+1)) + list(range(17,20+1)) + list(range(149,151+1))
-
-
-gaps1Dict = {'1':gaps1a,
-             '2':gaps1b,
-             '3':gaps1c,
-             '4':gaps1d,
-             '5':gaps1e,
-             '6':gaps1f,
-             '7':gaps1g,
-             }
-gaps2Dict = {'1':gaps2a,
-             '2':gaps2b,
-             '3':gaps2c,
-             '4':gaps2d,
-             '5':gaps2e,
-             '6':gaps2f,
-             }
-gaps3Dict = {'1':gaps3a,
-             '2':gaps3b,
-             '3':gaps3c,
-             '4':gaps3d,
-             '5':gaps3e,
-             '6':gaps3f,
-             '7':gaps3g,
-             '8':gaps3h,
-             '9':gaps3i,
-             '10':gaps3j,
-             '11':gaps3k,
-             '12':gaps3l,
-             }
-gaps4Dict = {'1':gaps4a,
-             '2':gaps4b,
-             '3':gaps4c,
-             }
-gaps5Dict = {'1':gaps5a,
-             '2':gaps5b,
-             '3':gaps5c,
-             '4':gaps5d,
-             '5':gaps5e,
-             '6':gaps5f,
-             '7':gaps5g,
-             '8':gaps5h,
-             '9':gaps5i,
-             '10':gaps5j,
-             '11':gaps5k,
-             '12':gaps5l,
-             }
-
-gaps58Dict = {'1':gaps58a,
-             '2':gaps58b,
-             '3':gaps58c,
-             '4':gaps58d,
-             '5':gaps58e,
-             '6':gaps58f,
-             '7':gaps58g,
-             '8':gaps58h,
-    
-             }
-
-gaps59Dict = {'1':gaps59a,
-             '2':gaps59b,
-             '3':gaps59c,
-             '4':gaps59d,
-             '5':gaps59e,
-             '6':gaps59f,
-             '7':gaps59g,
-             '8':gaps59h,
-             '9':gaps59i,
-             '10':gaps59j,
-             }
-
-gapsDict = {'P1': gaps1Dict,
-            'P2': gaps2Dict,
-            'P3': gaps3Dict,
-            'P4': gaps4Dict,
-            'P5': gaps5Dict,
-            'P58': gaps58Dict,
-            'P59': gaps59Dict
-
-    }
-
-
-
-
 projOPTS = [        ]
 
 whichAvgOPTS = []
@@ -239,7 +88,7 @@ stateOPTS = [
     {'label':'Polygon 33','value':"P33"},
     {'label':'Polygon 34','value':"P34"},
     {'label':'Polygon 35','value':"P35"},
-
+    {'label':'Polygon 36','value':"P36"},
 
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
@@ -280,6 +129,7 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P33': allLeaks.loc[allLeaks.POLYGON == "P33",].LEAKNUM.unique(),
              'P34': allLeaks.loc[allLeaks.POLYGON == "P34",].LEAKNUM.unique(),
              'P35': allLeaks.loc[allLeaks.POLYGON == "P35",].LEAKNUM.unique(),
+             'P36': allLeaks.loc[allLeaks.POLYGON == "P36",].LEAKNUM.unique(),
 
              'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
              'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
@@ -626,7 +476,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '8.26.20', style={"margin-top": "0px"}
+                                    '8.28.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
