@@ -96,6 +96,10 @@ stateOPTS = [
     {'label':'Polygon 40','value':"P40"},
     {'label':'Polygon 41','value':"P41"},
     {'label':'Polygon 42','value':"P42"},
+    {'label':'Polygon 43','value':"P43"},
+    {'label':'Polygon 44','value':"P44"},
+    {'label':'Polygon 45','value':"P45"},
+    {'label':'Polygon 46','value':"P46"},
 
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
@@ -144,6 +148,10 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P40': allLeaks.loc[allLeaks.POLYGON == "P40",].LEAKNUM.unique(),
              'P41': allLeaks.loc[allLeaks.POLYGON == "P41",].LEAKNUM.unique(),
              'P42': allLeaks.loc[allLeaks.POLYGON == "P42",].LEAKNUM.unique(),
+             'P43': allLeaks.loc[allLeaks.POLYGON == "P43",].LEAKNUM.unique(),
+             'P44': allLeaks.loc[allLeaks.POLYGON == "P44",].LEAKNUM.unique(),
+             'P45': allLeaks.loc[allLeaks.POLYGON == "P45",].LEAKNUM.unique(),
+             'P46': allLeaks.loc[allLeaks.POLYGON == "P46",].LEAKNUM.unique(),
 
              'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
              'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
@@ -490,7 +498,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '9.03.20', style={"margin-top": "0px"}
+                                    '9.11.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
