@@ -105,6 +105,13 @@ stateOPTS = [
     {'label':'Polygon 48','value':"P48"},
     {'label':'Polygon 49','value':"P49"},
     {'label':'Polygon 50','value':"P50"},
+  
+    {'label':'Polygon 51','value':"P51"},
+    {'label':'Polygon 52','value':"P52"},
+    {'label':'Polygon 53','value':"P53"},
+    {'label':'Polygon 54','value':"P54"},
+    {'label':'Polygon 55','value':"P55"},
+    {'label':'Polygon 57','value':"P57"},
 
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
@@ -162,6 +169,13 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P48': allLeaks.loc[allLeaks.POLYGON == "P48",].LEAKNUM.unique(),
              'P49': allLeaks.loc[allLeaks.POLYGON == "P49",].LEAKNUM.unique(),
              'P50': allLeaks.loc[allLeaks.POLYGON == "P50",].LEAKNUM.unique(),
+             
+             'P51': allLeaks.loc[allLeaks.POLYGON == "P51",].LEAKNUM.unique(),
+             'P52': allLeaks.loc[allLeaks.POLYGON == "P52",].LEAKNUM.unique(),
+             'P53': allLeaks.loc[allLeaks.POLYGON == "P53",].LEAKNUM.unique(),
+             'P54': allLeaks.loc[allLeaks.POLYGON == "P54",].LEAKNUM.unique(),
+             'P55': allLeaks.loc[allLeaks.POLYGON == "P55",].LEAKNUM.unique(),
+             'P56': allLeaks.loc[allLeaks.POLYGON == "P57",].LEAKNUM.unique(),
 
              'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
              'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
@@ -508,7 +522,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '9.16.20', style={"margin-top": "0px"}
+                                    '9.28.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
