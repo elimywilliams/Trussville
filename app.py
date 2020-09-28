@@ -175,7 +175,7 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P53': allLeaks.loc[allLeaks.POLYGON == "P53",].LEAKNUM.unique(),
              'P54': allLeaks.loc[allLeaks.POLYGON == "P54",].LEAKNUM.unique(),
              'P55': allLeaks.loc[allLeaks.POLYGON == "P55",].LEAKNUM.unique(),
-             'P56': allLeaks.loc[allLeaks.POLYGON == "P57",].LEAKNUM.unique(),
+             'P57': allLeaks.loc[allLeaks.POLYGON == "P57",].LEAKNUM.unique(),
 
              'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
              'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
