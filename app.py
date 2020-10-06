@@ -68,11 +68,6 @@ stateOPTS = [
 
     {'label':'Polygon 10','value':"P10"},
     {'label':'Polygon 11','value':"P11"},
-    
-    {'label':'Polygon 16','value':"P16"},
-    {'label':'Polygon 17','value':"P17"},
-    {'label':'Polygon 18','value':"P18"},
-
     {'label':'Polygon 19','value':"P19"},
     {'label':'Polygon 20','value':"P20"},
     {'label':'Polygon 21','value':"P21"},
@@ -121,7 +116,6 @@ stateOPTS = [
 
     {'label':'Polygon 58','value':"P58"},
     {'label':'Polygon 59','value':"P59"}
-    {'label':'Polygon 60','value':"P60"},
 
 
     ]
@@ -142,9 +136,6 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P9': allLeaks.loc[allLeaks.POLYGON == "P9",].LEAKNUM.unique(),
              'P10': allLeaks.loc[allLeaks.POLYGON == "P10",].LEAKNUM.unique(),
              'P11': allLeaks.loc[allLeaks.POLYGON == "P11",].LEAKNUM.unique(),
-             'P16': allLeaks.loc[allLeaks.POLYGON == "P16",].LEAKNUM.unique(),
-             'P17': allLeaks.loc[allLeaks.POLYGON == "P17",].LEAKNUM.unique(),
-             'P18': allLeaks.loc[allLeaks.POLYGON == "P18",].LEAKNUM.unique(),
              'P19': allLeaks.loc[allLeaks.POLYGON == "P19",].LEAKNUM.unique(),
              'P20': allLeaks.loc[allLeaks.POLYGON == "P20",].LEAKNUM.unique(),
              'P21': allLeaks.loc[allLeaks.POLYGON == "P21",].LEAKNUM.unique(),
@@ -191,8 +182,7 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
 
              'P58': allLeaks.loc[allLeaks.POLYGON == "P58",].LEAKNUM.unique(),
              'P59': allLeaks.loc[allLeaks.POLYGON == "P59",].LEAKNUM.unique()
-             'P60': allLeaks.loc[allLeaks.POLYGON == "P60",].LEAKNUM.unique(),
-       
+                       
              }
 
 #fnameDict2 = [{x:allLeaks.loc[allLeaks.POLYGON == x].LEAKNUM.unique()} for x in checked]
@@ -535,7 +525,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '10.06.20', style={"margin-top": "0px"}
+                                    '9.29.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
