@@ -68,7 +68,8 @@ stateOPTS = [
 
     {'label':'Polygon 10','value':"P10"},
     {'label':'Polygon 11','value':"P11"},
-  
+    {'label':'Polygon 14','value':"P14"},
+
     {'label':'Polygon 16','value':"P16"},
     {'label':'Polygon 17','value':"P17"},
     {'label':'Polygon 18','value':"P18"},
@@ -142,6 +143,8 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P9': allLeaks.loc[allLeaks.POLYGON == "P9",].LEAKNUM.unique(),
              'P10': allLeaks.loc[allLeaks.POLYGON == "P10",].LEAKNUM.unique(),
              'P11': allLeaks.loc[allLeaks.POLYGON == "P11",].LEAKNUM.unique(),
+             'P14': allLeaks.loc[allLeaks.POLYGON == "P14",].LEAKNUM.unique(),
+
              'P16': allLeaks.loc[allLeaks.POLYGON == "P16",].LEAKNUM.unique(),
              'P17': allLeaks.loc[allLeaks.POLYGON == "P17",].LEAKNUM.unique(),
              'P18': allLeaks.loc[allLeaks.POLYGON == "P18",].LEAKNUM.unique(),
@@ -536,7 +539,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '10.06.20', style={"margin-top": "0px"}
+                                    '10.09.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
