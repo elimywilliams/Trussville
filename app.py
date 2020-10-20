@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 
 import dash
 import dash_core_components as dcc
@@ -12,11 +6,8 @@ import dash_html_components as html
 import pandas as pd
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
-#from dash.dependencies import Input, Output
 import plotly.express as px
-#import base64
 import json
-#from textwrap import dedent as d
 import bs4 as bs
 import dash_html_components as html
 import requests 
@@ -30,7 +21,6 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',
                         ]
 px.set_mapbox_access_token('pk.eyJ1IjoiZXdpbGxpYW1zMjAyMCIsImEiOiJja2FpdTIxOXMwM2wzMnFtbmVmb3IzZDJ6In0.TVsQ-iu8bN4PQLkBCr6tQQ')
 
-#allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaks.csv')
 allPoly = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allPoly.csv')
 allGaps = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allGaps.csv')
 allLeaks = pd.read_csv('https://raw.githubusercontent.com/elimywilliams/Trussville/master/allLeaksWin.csv')
@@ -68,6 +58,9 @@ stateOPTS = [
 
     {'label':'Polygon 10','value':"P10"},
     {'label':'Polygon 11','value':"P11"},
+    {'label':'Polygon 12','value':"P12"},
+    {'label':'Polygon 13','value':"P13"},
+
     {'label':'Polygon 14','value':"P14"},
 
     {'label':'Polygon 16','value':"P16"},
@@ -143,6 +136,8 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
              'P9': allLeaks.loc[allLeaks.POLYGON == "P9",].LEAKNUM.unique(),
              'P10': allLeaks.loc[allLeaks.POLYGON == "P10",].LEAKNUM.unique(),
              'P11': allLeaks.loc[allLeaks.POLYGON == "P11",].LEAKNUM.unique(),
+             'P12': allLeaks.loc[allLeaks.POLYGON == "P12",].LEAKNUM.unique(),
+             'P13': allLeaks.loc[allLeaks.POLYGON == "P13",].LEAKNUM.unique(),
              'P14': allLeaks.loc[allLeaks.POLYGON == "P14",].LEAKNUM.unique(),
 
              'P16': allLeaks.loc[allLeaks.POLYGON == "P16",].LEAKNUM.unique(),
@@ -199,8 +194,6 @@ fnameDict = {'P1': allLeaks.loc[allLeaks.POLYGON == "P1",].LEAKNUM.unique(),
 
              }
 
-#fnameDict2 = [{x:allLeaks.loc[allLeaks.POLYGON == x].LEAKNUM.unique()} for x in checked]
-
 
 gapSize = 10
 gnameDict = {'P1':list(range(1,int(allGaps.loc[allGaps.POLYGON == 'P1',].portion.unique().size/gapSize)+1)),
@@ -208,14 +201,7 @@ gnameDict = {'P1':list(range(1,int(allGaps.loc[allGaps.POLYGON == 'P1',].portion
              'P3':list(range(1,int(allGaps.loc[allGaps.POLYGON == 'P3',].portion.unique().size/gapSize)+1)),
              'P4':list(range(1,int(allGaps.loc[allGaps.POLYGON == 'P4',].portion.unique().size/gapSize)+1))             
              }
-# gsizeDict = {'P1':allGaps.loc[allGaps.POLYGON=='P1',].portion.unique().size,
-#              'P2':allGaps.loc[allGaps.POLYGON=='P2',].portion.unique().size,
-#              'P3':allGaps.loc[allGaps.POLYGON=='P3',].portion.unique().size,
-#              'P4':allGaps.loc[allGaps.POLYGON=='P4',].portion.unique().size,    
-#              'P5':allGaps.loc[allGaps.POLYGON=='P5',].portion.unique().size,
-#              'P58':allGaps.loc[allGaps.POLYGON=='P58',].portion.unique().size,
-#              'P59':allGaps.loc[allGaps.POLYGON=='P59',].portion.unique().size
-#              }
+
 
 gsizeDict = {}
 for x in checked:
@@ -539,7 +525,7 @@ app.layout = html.Div(
                                     style={"margin-bottom": "0px"},
                                 ),
                                 html.H5(
-                                    '10.09.20', style={"margin-top": "0px"}
+                                    '10.20.20', style={"margin-top": "0px"}
                                 ),
                               dcc.Tabs(id="tabs-example", value='tab-1-example', children=[
                                   dcc.Tab(id="tab-1", label='Leak Indications', value='tab-1-example'),
